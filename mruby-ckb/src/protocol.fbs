@@ -46,6 +46,7 @@ table Header {
     cellbase_id:    H256;
     uncles_hash:    H256;
     uncles_count:   uint32;
+    txs_cycles:     uint64;
 }
 
 table Block {

@@ -107,6 +107,11 @@ int ckb_load_input_by_field(void* addr, uint64_t* len, size_t offset, size_t ind
   return CKB_SUCCESS;
 }
 
+int ckb_load_block_info(void* addr, uint64_t* len, size_t offset, size_t number)
+{
+  return CKB_SUCCESS;
+}
+
 int ckb_debug(const char* s)
 {
   return puts(s);
