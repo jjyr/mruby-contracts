@@ -53,9 +53,9 @@ int ckb_load_input_by_field(void* addr, uint64_t* len, size_t offset,
   return syscall(SYS_ckb_load_input_by_field, addr, len, offset, index, source, field);
 }
 
-int ckb_load_block_info(void* addr, uint64_t* len, size_t offset, size_t number)
+int ckb_load_ancestor_block_info(void* addr, uint64_t* len, size_t offset, size_t ancestor_number)
 {
-  return syscall(SYS_ckb_load_block_info, addr, len, offset, number, 0, 0);
+  return syscall(SYS_ckb_load_ancestor_block_info, addr, len, offset, ancestor_number, 0, 0);
 }
 
 int ckb_debug(const char* s)

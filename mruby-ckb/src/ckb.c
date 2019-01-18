@@ -17,8 +17,8 @@ extern int ckb_load_cell_by_field(void* addr, uint64_t* len, size_t offset,
                            size_t index, size_t source, size_t field);
 extern int ckb_load_input_by_field(void* addr, uint64_t* len, size_t offset,
                             size_t index, size_t source, size_t field);
-extern int ckb_load_block_info(void* addr, uint64_t* len, size_t offset,
-                            size_t block_number);
+extern int ckb_load_ancestor_block_info(void* addr, uint64_t* len, size_t offset,
+                            size_t ancestor_number);
 extern int ckb_debug(const char* s);
 
 static mrb_value
@@ -341,13 +341,13 @@ ckb_mrb_load_input_out_point(mrb_state *mrb, mrb_value obj)
 }
 
 static mrb_value
-ckb_mrb_load_block_info(mrb_state *mrb, mrb_value obj)
+ckb_mrb_load_ancestor_block_info(mrb_state *mrb, mrb_value obj)
 {
-  mrb_int block_number;
+  mrb_int ancestor_number;
   uint64_t len = 0;
 
-  mrb_get_args(mrb, "i", &block_number);
-  if (ckb_load_block_info(0, &len, 0, block_number) != CKB_SUCCESS) {
+  mrb_get_args(mrb, "i", &ancestor_number);
+  if (ckb_load_ancestor_block_info(0, &len, 0, ancestor_number) != CKB_SUCCESS) {
     mrb_raise(mrb, E_ARGUMENT_ERROR, "wrong load block_info return value!");
   }
 
@@ -356,7 +356,7 @@ ckb_mrb_load_block_info(mrb_state *mrb, mrb_value obj)
     mrb_raise(mrb, E_ARGUMENT_ERROR, "not enough memory!");
   }
 
-  if (ckb_load_block_info(addr, &len, 0, block_number) != CKB_SUCCESS) {
+  if (ckb_load_ancestor_block_info(addr, &len, 0, ancestor_number) != CKB_SUCCESS) {
     mrb_raise(mrb, E_ARGUMENT_ERROR, "error loading block_info!");
   }
 
@@ -499,7 +499,7 @@ mrb_mruby_ckb_gem_init(mrb_state* mrb)
   mrb_define_module_function(mrb, mrb_ckb, "load_output_type_script", ckb_mrb_load_output_type_script, MRB_ARGS_REQ(1));
   mrb_define_module_function(mrb, mrb_ckb, "load_input_unlock_script", ckb_mrb_load_input_unlock_script, MRB_ARGS_REQ(1));
   mrb_define_module_function(mrb, mrb_ckb, "load_input_out_point", ckb_mrb_load_input_out_point, MRB_ARGS_REQ(2));
-  mrb_define_module_function(mrb, mrb_ckb, "load_input_block_info", ckb_mrb_load_block_info, MRB_ARGS_REQ(1));
+  mrb_define_module_function(mrb, mrb_ckb, "load_ancestor_block_info", ckb_mrb_load_ancestor_block_info, MRB_ARGS_REQ(1));
   mrb_define_module_function(mrb, mrb_ckb, "debug", ckb_mrb_debug, MRB_ARGS_REQ(1));
   reader = mrb_define_class_under(mrb, mrb_ckb, "Reader", mrb->object_class);
   cell = mrb_define_class_under(mrb, mrb_ckb, "Cell", reader);

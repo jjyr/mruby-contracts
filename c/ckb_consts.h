@@ -6,7 +6,7 @@
 #define SYS_ckb_load_cell 2053
 #define SYS_ckb_load_cell_by_field 2054
 #define SYS_ckb_load_input_by_field 2055
-#define SYS_ckb_load_block_info 2056
+#define SYS_ckb_load_ancestor_block_info 2056
 #define SYS_ckb_debug 2177
 
 #define CKB_SUCCESS 0
